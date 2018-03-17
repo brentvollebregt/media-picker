@@ -1,0 +1,7 @@
+bottle==0.12.13
+bottle-websocket==0.2.9
+Eel==0.9.1
+future==0.16.0
+gevent==1.2.2
+gevent-websocket==0.10.1
+greenlet==0.4.13
