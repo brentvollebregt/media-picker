@@ -11,4 +11,4 @@ def selectInputFolder():
 def selectOutputFolder():
     return utils.selectOutputFolder()
 
-eel.start('main.html', size=(650, 612))
+eel.start('main.html', options={'mode': "chrome"})
