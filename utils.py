@@ -1,8 +1,12 @@
-from tkinter.filedialog import askopenfilename, askdirectory
+from tkinter.filedialog import askdirectory
 from tkinter import Tk
 
 def selectInputFolder():
-    pass
+    root = Tk()
+    root.withdraw()
+    root.wm_attributes('-topmost', 1)
+    folder = askdirectory(parent=root)
+    return folder
 
 def selectOutputFolder():
     pass
