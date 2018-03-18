@@ -7,9 +7,38 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+}
+
 body {
-    background-color: #FBFBFB;
+    height: 100%;
     font-family: 'Nunito', Helvetica, Arial, sans-serif;
     font-weight: 100;
     margin: 0;
+}
+
+/* Main Separation */
+.img_scroll_separation {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 120px;
+}
+
+/* Image (including buttons and info) */
+.image_base_padding {
+    height: 100%;
+    padding: 30px 50px 10px 50px;
+}
+
+/* Scroller (including images)*/
+.scroller_base_padding {
+    padding: 0 20px 20px 20px;
+}
+
+.scroller {
+    background: rgba(0, 0, 0, 0.2);
+    height: 100%;
+    border-right: solid 4px #5a85c4;
+    border-left: solid 4px #5a85c4;
 }
