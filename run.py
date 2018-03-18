@@ -60,4 +60,4 @@ def export(items):
     output = utils.selectOutputFolder()
     # TODO Move
 
-eel.start('main.html', options={'mode': "chrome"})
+eel.start('main.html', options={'mode': "chrome", 'chromeFlags' : ['--args', '--allow-file-access-from-files']})

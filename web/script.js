@@ -31,4 +31,8 @@ function setAsMain(id) {
     current = id;
 }
 
-setImages();
+// setImages();
+function call(event) {
+    document.getElementById('main_img').src = URL.createObjectURL(event.target.files[0]);
+    console.log(event.target.files[0].name);
+}
