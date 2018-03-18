@@ -18,6 +18,7 @@ if not os.path.isdir(input_folder):
     input_folder = utils.selectInputFolder()
 
 # Get files and other info
+print ("Searching for files")
 supported_files = {} # id:{filename, ...}
 current_id = 1
 for root, dirs, files in os.walk(input_folder, topdown=False):
@@ -38,7 +39,13 @@ for root, dirs, files in os.walk(input_folder, topdown=False):
                 supported_files[str(current_id)]['base64'] = encoded_string.decode('utf-8')
                 supported_files[str(current_id)]['base64_thum'] = base64.b64encode(buffered.getvalue()).decode('utf-8')
 
+            print ("Added: " + os.path.join(root, name))
             current_id += 1
+
+if len(supported_files) < 1:
+    print("The provided directory does not contain any supported files")
+    sys.exit(0)
+print ("Opening Chrome")
 
 eel.init('web')
 
@@ -51,7 +58,4 @@ def export(items):
     output = utils.selectOutputFolder()
     # TODO Move
 
-
 eel.start('main.html', options={'mode': "chrome"})
-
-# TODO When wanting to export, as where to save

@@ -1,7 +1,6 @@
 from tkinter.filedialog import askdirectory
-from tkinter import Tk
+from tkinter import Tk, messagebox
 
-import PIL.ExifTags
 from PIL import ExifTags
 
 def selectInputFolder():

@@ -79,7 +79,6 @@ body {
 }
 
 .scroller {
-    background: rgba(0, 0, 0, 0.2);
     height: 100%;
     width: 100%;
     border-right: solid 4px #5a85c4;
