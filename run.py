@@ -24,12 +24,14 @@ for root, dirs, files in os.walk(input_folder, topdown=False):
     for name in files:
         if os.path.splitext(name)[1] in supported_exenstions:
             supported_files[str(current_id)] = {
-                'file' : os.path.join(root, name)
+                'file' : os.path.join(root, name),
+                'size' : round(os.path.getsize(os.path.join(root, name)) / 1000000, 2)
             }
             with open(os.path.join(root, name), "rb") as image_file:
                 file_contents = image_file.read()
                 encoded_string = base64.b64encode(file_contents)
                 image = Image.open(io.BytesIO(file_contents))
+                supported_files[str(current_id)].update(utils.parseExifData(image._getexif()))
                 image.thumbnail((200, 300))
                 buffered = io.BytesIO()
                 image.save(buffered, format="PNG")

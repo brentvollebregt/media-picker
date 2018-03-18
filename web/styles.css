@@ -84,6 +84,9 @@ body {
     width: 100%;
     border-right: solid 4px #5a85c4;
     border-left: solid 4px #5a85c4;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    white-space: nowrap;
 }
 
 /* Formatting */
