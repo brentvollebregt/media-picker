@@ -51,6 +51,13 @@ body {
     grid-template-rows: 1fr 90px;
 }
 
+#main_img {
+    height: 100%;
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
 .btn_info_sep {
     height: 100%;
     display: grid;
@@ -66,6 +73,8 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-column-gap: 8px;
+    width: 80%;
+    margin: auto;
 }
 
 .info_item {

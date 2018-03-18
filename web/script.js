@@ -1,7 +1,8 @@
 let data;
+let current;
 
 async function setImages() {
-    // TODO Loading bar - get size and inc when we pass a file
+    // TODO Loading bar
     data = await eel.getImageData()();
     let parent = document.getElementById('scroll_bar');
     parent.style.width = window.innerWidth-40 + 'px';
@@ -22,6 +23,12 @@ async function setImages() {
 
 function setAsMain(id) {
     document.getElementById('main_img').src = 'data:image/jpg;base64,' + data[id]['base64'];
+    document.getElementById('info_date').innerHTML = data[id]['date'];
+    document.getElementById('info_size').innerHTML = data[id]['size'] + "Mb";
+    document.getElementById('info_dimensions').innerHTML = 'N/A';
+    document.getElementById('info_model').innerHTML = data[id]['model'];
+    document.getElementById('info_location').innerHTML = 'N/A';
+    current = id;
 }
 
 setImages();

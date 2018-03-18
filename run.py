@@ -5,6 +5,7 @@ import io
 import eel
 import utils
 from PIL import Image
+import json
 
 supported_exenstions = ['.jpg', '.jpeg', '.png']
 
@@ -38,6 +39,7 @@ for root, dirs, files in os.walk(input_folder, topdown=False):
                 image.save(buffered, format="PNG")
                 supported_files[str(current_id)]['base64'] = encoded_string.decode('utf-8')
                 supported_files[str(current_id)]['base64_thum'] = base64.b64encode(buffered.getvalue()).decode('utf-8')
+                # TODO Get image size
 
             print ("Added: " + os.path.join(root, name))
             current_id += 1
@@ -51,7 +53,7 @@ eel.init('web')
 
 @eel.expose
 def getImageData():
-    return supported_files
+    return json.dumps(supported_files)
 
 @eel.expose
 def export(items):

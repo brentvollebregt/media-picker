@@ -1,5 +1,5 @@
 from tkinter.filedialog import askdirectory
-from tkinter import Tk, messagebox
+from tkinter import Tk
 
 from PIL import ExifTags
 
@@ -32,5 +32,6 @@ def parseExifData(data):
         return_exif['date'] = exif['DateTime']
     else:
         return_exif['date'] = ''
+    # TODO Location
 
     return return_exif
