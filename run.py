@@ -1,63 +1,44 @@
-import base64
+from flask import Flask, render_template, send_from_directory
 import sys
-import os
-import io
-import eel
 import utils
-from PIL import Image
-import json
+import webbrowser
 
-supported_exenstions = ['.jpg', '.jpeg', '.png']
+images = {}
 
 # Get Args
 input_folder = ''
 if len(sys.argv) > 1:
-    input_folder = sys.argv[1]
+    image_files = utils.getFilesFromDirectory(sys.argv[1])
+    utils.addImagesToDict(images, image_files)
 
-# Make sure we have an input folder
-if not os.path.isdir(input_folder):
-    input_folder = utils.selectInputFolder()
+app = Flask(__name__, static_url_path='')
 
-# Get files and other info
-print ("Searching for files")
-supported_files = {} # id:{filename, ...}
-current_id = 1
-for root, dirs, files in os.walk(input_folder, topdown=False):
-    for name in files:
-        if os.path.splitext(name)[1] in supported_exenstions:
-            supported_files[str(current_id)] = {
-                'file' : os.path.join(root, name),
-                'size' : round(os.path.getsize(os.path.join(root, name)) / 1000000, 2)
-            }
-            with open(os.path.join(root, name), "rb") as image_file:
-                file_contents = image_file.read()
-                encoded_string = base64.b64encode(file_contents)
-                image = Image.open(io.BytesIO(file_contents))
-                supported_files[str(current_id)].update(utils.parseExifData(image._getexif()))
-                image.thumbnail((200, 300))
-                buffered = io.BytesIO()
-                image.save(buffered, format="PNG")
-                supported_files[str(current_id)]['base64'] = encoded_string.decode('utf-8')
-                supported_files[str(current_id)]['base64_thum'] = base64.b64encode(buffered.getvalue()).decode('utf-8')
-                # TODO Get image size
+@app.route("/")
+def rootRoute():
+    return render_template('main.html')
 
-            print ("Added: " + os.path.join(root, name))
-            current_id += 1
+@app.route('/image/<id>')
+def getImageRoute(id):
+    return ''
+    # return send_from_directory()
 
-if len(supported_files) < 1:
-    print("The provided directory does not contain any supported files")
-    sys.exit(0)
-print ("Opening Chrome")
+@app.route('/selectDirectory/')
+def selectDirectoryRoute(id):
+    directory = utils.selectDirectory()
+    return ''
+    # return send_from_directory()
 
-eel.init('web')
+@app.route('/selectFiles/')
+def selectFilesRoute(id):
+    directory = utils.selectFiles()
+    return ''
+    # return send_from_directory()
 
-@eel.expose
-def getImageData():
-    return json.dumps(supported_files)
 
-@eel.expose
-def export(items):
-    output = utils.selectOutputFolder()
-    # TODO Move
-
-eel.start('main.html', options={'mode': "chrome", 'chromeFlags' : ['--args', '--allow-file-access-from-files']})
+if __name__ == '__main__':
+    import socket
+    ip = socket.gethostbyname(socket.gethostname())
+    port = 8080
+    webbrowser.open('http://' + ip + ':' + str(port) + '/', new=2, autoraise=True)
+    print("Site starting on http://" + ip + ":" + str(port))
+    app.run(host=ip, port=port, debug=True)

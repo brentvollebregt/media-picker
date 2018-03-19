@@ -1,37 +1,40 @@
-from tkinter.filedialog import askdirectory
+from tkinter.filedialog import askdirectory, askopenfilenames
 from tkinter import Tk
+import os
 
-from PIL import ExifTags
+supported_exenstions = ['.jpg', '.jpeg', '.png']
 
-def selectInputFolder():
+def selectDirectory():
     root = Tk()
     root.withdraw()
     root.wm_attributes('-topmost', 1)
-    folder = askdirectory(parent=root)
-    return folder
+    directory = askdirectory(parent=root)
+    return directory
+
+def selectFiles():
+    root = Tk()
+    root.withdraw()
+    root.wm_attributes('-topmost', 1)
+    files = askopenfilenames(parent=root, initialdir="/", title="Select file", filetypes=(("jpeg files", "*.jpg"), ("all files", "*.*")))
+    print (root.tk.splitlist(files))
 
 def selectOutputFolder():
+    pass
+
+def getFilesFromDirectory(directory):
+    file_list = []
+    for root, dirs, files in os.walk(directory, topdown=False):
+        for name in files:
+            if os.path.splitext(name)[1] in supported_exenstions:
+                file_list.append(os.path.join(root, name))
+    return file_list
+
+def addImagesToDict(image_dict, images):
     pass
 
 def moveMedia(src, items, dest):
     # items - src -> dest
     pass
 
-def parseExifData(data):
-    exif = {
-        ExifTags.TAGS[k]: v
-        for k, v in data.items()
-        if k in ExifTags.TAGS
-    }
-    return_exif = {}
-    if 'Model' in exif:
-        return_exif['model'] = exif['Model']
-    else:
-        return_exif['model'] = ''
-    if 'DateTime' in exif:
-        return_exif['date'] = exif['DateTime']
-    else:
-        return_exif['date'] = ''
-    # TODO Location
-
-    return return_exif
+def test(images, item):
+    images[item] = 5

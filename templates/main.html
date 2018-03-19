@@ -3,11 +3,24 @@
     <head>
         <meta charset="UTF-8">
         <title>Image Decisions</title>
-        <script type="text/javascript" src="/eel.js"></script>
         <script type="text/javascript" src="/script.js"></script>
         <link rel="stylesheet" href="/styles.css">
     </head>
     <body>
+        <div id="overlay" onclick="closeOverlayChoice()">
+            <div id="addFileChoice">
+                <div><div>Select by File</div></div>
+                <div><div>Select by Folder</div></div>
+            </div>
+            <div id="clearChoice">
+                <div><div>Clear Files</div></div>
+                <div><div>Clear Choices</div></div>
+            </div>
+            <div id="exportChoice">
+                <div><div>Export by Copy</div></div>
+                <div><div>Export by Move</div></div>
+            </div>
+        </div>
         <div class="img_scroll_separation">
             <!-- Image Container -->
             <div class="image_base_padding">
@@ -37,7 +50,16 @@
                 <!-- Scroller -->
                 <div id="scroll_bar" class="scroller"></div>
             </div>
+
+            <!-- Controls -->
+            <div style="height: 100%; padding: 5px 20px 10px 20px; display: inline-block; margin: auto;">
+                <button class="btn_main" onclick="overlayChoice('addFileChoice')">Add Files</button>
+                <button class="btn_main" onclick="overlayChoice('clearChoice')">Clear</button>
+                <button class="btn_main">Set output</button>
+                <button class="btn_main" onclick="overlayChoice('exportChoice')">Export</button>
+                <button class="btn_main">View output</button>
+                <button class="btn_main">Close</button>
+            </div>
         </div>
-        <input type="file" onchange="call(event)" multiple="multiple">
     </body>
 </html>
