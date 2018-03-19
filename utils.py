@@ -18,12 +18,12 @@ def selectFiles():
     root.withdraw()
     root.wm_attributes('-topmost', 1)
     files = askopenfilenames(parent=root, initialdir="/", title="Select file", filetypes=(("jpeg files", "*.jpg"), ("all files", "*.*")))
-    return root.tk.splitlist(files)
+    return root.tk.splitlist([file.replace('/', '\\') for file in files])
 
 def getFilesFromDirectory(directory):
     """ Gets files with supported file extensions within a directory """
     file_list = []
-    for root, dirs, files in os.walk(directory, topdown=False):
+    for root, dirs, files in os.walk(directory.replace('/', '\\'), topdown=False):
         for name in files:
             if os.path.splitext(name)[1] in supported_exenstions:
                 file_list.append(os.path.join(root, name))

@@ -1,8 +1,10 @@
 let data;
 let current = null;
+let in_scroll = [];
 
 // Setup Images
 function setupImages(images_data) {
+    data = images_data;
     if (images_data === null) {
         let xhr = new XMLHttpRequest();
         xhr.open('get', '/getImages/', true);
@@ -12,32 +14,30 @@ function setupImages(images_data) {
             setupImages(this.response);
         };
         xhr.send();
-    } else if (Object.keys(images_data).length === 0) {
-        let parent = document.getElementById("scroll_bar");
-        while (parent.firstChild) {
-            parent.removeChild(parent.firstChild);
-        }
-        setMain(null);
     } else {
-        data = images_data;
         let parent = document.getElementById('scroll_bar');
         parent.style.width = window.innerWidth-40 + 'px';
         for (const key of Object.keys(data)) {
-            // TODO Make sure images aren't already there
-            let div = document.createElement('div');
-            let img = document.createElement('img');
-            div.style.display = 'inline-block';
-            div.style.cursor = 'pointer';
-            img.style.height = document.getElementById('scroll_bar').clientHeight + 'px';
-            img.style.border = '2px solid #458BC6';
-            img.style.margin = '0 2px';
-            img.src = '/image/' + key;
-            img.onclick = function () { setMain(key) };
-            div.appendChild(img);
-            parent.appendChild(div);
+            if (in_scroll.indexOf(key) === -1) {
+                // TODO Make sure images aren't already there
+                let div = document.createElement('div');
+                let img = document.createElement('img');
+                div.style.display = 'inline-block';
+                div.style.cursor = 'pointer';
+                img.style.height = document.getElementById('scroll_bar').clientHeight + 'px';
+                img.style.border = '2px solid #458BC6';
+                img.style.margin = '0 2px';
+                img.src = '/image/' + key;
+                img.onclick = function () {
+                    setMain(key)
+                };
+                div.appendChild(img);
+                parent.appendChild(div);
+                in_scroll.push(key);
+            }
         }
 
-        if (current === null) {
+        if (current === null && in_scroll.length > 0) {
             setMain('1');
         }
     }
@@ -100,7 +100,15 @@ function getImagesWithFileSelect() {
 }
 
 function clearFiles() {
-
+    let xhr = new XMLHttpRequest();
+    xhr.open('get', '/clearImages/', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+        console.log("Reloading");
+        window.location.reload(true)
+    };
+    xhr.send();
 }
 
 function clearChoices() {
