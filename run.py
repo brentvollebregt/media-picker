@@ -45,6 +45,23 @@ def clearImagesRoute():
     images.clear()
     return jsonify(images)
 
+@app.route('/exportCopy/', methods=['POST'])
+def exportCopyRoute():
+    output_dir = utils.selectDirectory()
+    # TODO
+    return ''
+
+@app.route('/exportMove/', methods=['POST'])
+def exportMoveRoute():
+    output_dir = utils.selectDirectory()
+    # TODO
+    return ''
+
+@app.route('/viewOutputFolder/')
+def viewOutputFolderRoute():
+    # TODO
+    return ''
+
 @app.after_request
 def add_header(r):
     """

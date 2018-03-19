@@ -19,7 +19,6 @@ function setupImages(images_data) {
         parent.style.width = window.innerWidth-40 + 'px';
         for (const key of Object.keys(data)) {
             if (in_scroll.indexOf(key) === -1) {
-                // TODO Make sure images aren't already there
                 let div = document.createElement('div');
                 let img = document.createElement('img');
                 div.style.display = 'inline-block';
@@ -60,6 +59,35 @@ function setMain(id) {
         document.getElementById('info_location').innerHTML = 'N/A';
     }
     current = id;
+}
+
+// Main Image Clicks
+function mainImageClicked(event) {
+    let size_x = document.getElementById("main_img").clientWidth;
+    let pos_x = event.offsetX?(event.offsetX):event.pageX-document.getElementById("main_img").offsetLeft;
+	if (pos_x < size_x*0.2) {
+	    let next = (parseInt(current) - 1) + '';
+	    if (next in data) {
+	        setMain(next);
+        }
+    } else if (pos_x > size_x - (size_x*0.2)) {
+	    let next = (parseInt(current) + 1) + '';
+	    if (next in data) {
+	        setMain(next);
+        }
+    } else {
+	    expandMain();
+    }
+}
+
+function expandMain() {
+    console.log("Expand");
+    let node = document.getElementById('main_img');
+    console.log()
+}
+
+function shrinkMain() {
+
 }
 
 // Dialogs
@@ -112,10 +140,6 @@ function clearFiles() {
 }
 
 function clearChoices() {
-
-}
-
-function setOutput() {
 
 }
 

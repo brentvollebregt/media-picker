@@ -27,7 +27,7 @@
                 <!-- Image Button Separation-->
                 <div class="img_btn_sep">
                     <!-- Image -->
-                    <img id="main_img" src="">
+                    <img id="main_img" src="" onclick="mainImageClicked(event)">
                     <!-- Buttons and Info -->
                     <div class="btn_info_sep">
                         <!-- Image Info -->
@@ -55,10 +55,8 @@
             <div style="height: 100%; padding: 5px 20px 10px 20px; display: inline-block; margin: auto;">
                 <button class="btn_main" onclick="overlayChoice('addFileChoice')">Add Files</button>
                 <button class="btn_main" onclick="overlayChoice('clearChoice')">Clear</button>
-                <button class="btn_main">Set output</button>
                 <button class="btn_main" onclick="overlayChoice('exportChoice')">Export</button>
                 <button class="btn_main">View output</button>
-                <button class="btn_main">Close</button>
             </div>
         </div>
     </body>
