@@ -12,6 +12,12 @@ function setupImages(images_data) {
             setupImages(this.response);
         };
         xhr.send();
+    } else if (Object.keys(images_data).length === 0) {
+        let parent = document.getElementById("scroll_bar");
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+        setMain(null);
     } else {
         data = images_data;
         let parent = document.getElementById('scroll_bar');
@@ -31,7 +37,6 @@ function setupImages(images_data) {
             parent.appendChild(div);
         }
 
-        // TODO Setup images
         if (current === null) {
             setMain('1');
         }
@@ -39,12 +44,21 @@ function setupImages(images_data) {
 }
 
 function setMain(id) {
-    document.getElementById('main_img').src = '/image/' + id;
-    document.getElementById('info_date').innerHTML = 'N/A';
-    document.getElementById('info_size').innerHTML = 'N/A';
-    document.getElementById('info_dimensions').innerHTML = 'N/A';
-    document.getElementById('info_model').innerHTML = 'N/A';
-    document.getElementById('info_location').innerHTML = 'N/A';
+    if (id === null) {
+        document.getElementById('main_img').src = '';
+        document.getElementById('info_date').innerHTML = '';
+        document.getElementById('info_size').innerHTML = '';
+        document.getElementById('info_dimensions').innerHTML = '';
+        document.getElementById('info_model').innerHTML = '';
+        document.getElementById('info_location').innerHTML = '';
+    } else {
+        document.getElementById('main_img').src = '/image/' + id;
+        document.getElementById('info_date').innerHTML = 'N/A';
+        document.getElementById('info_size').innerHTML = 'N/A';
+        document.getElementById('info_dimensions').innerHTML = 'N/A';
+        document.getElementById('info_model').innerHTML = 'N/A';
+        document.getElementById('info_location').innerHTML = 'N/A';
+    }
     current = id;
 }
 
@@ -62,7 +76,7 @@ function closeOverlayChoice() {
     }
 }
 
-// Choice Methods
+// User Methods
 function getImagesWithFolderSelect() {
     let xhr = new XMLHttpRequest();
     xhr.open('get', '/selectDirectory/', true);
@@ -85,6 +99,31 @@ function getImagesWithFileSelect() {
     xhr.send();
 }
 
+function clearFiles() {
+
+}
+
+function clearChoices() {
+
+}
+
+function setOutput() {
+
+}
+
+function exportCopy() {
+
+}
+
+function exportMove() {
+
+}
+
+function viewOutputFolder() {
+
+}
+
+// On load
 window.addEventListener('load', function () {
     setupImages(null);
 });
