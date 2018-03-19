@@ -53,8 +53,8 @@ function setMain(id) {
     } else {
         document.getElementById('main_img').src = '/image/' + id;
         document.getElementById('info_date').innerHTML = 'N/A';
-        document.getElementById('info_size').innerHTML = 'N/A';
-        document.getElementById('info_dimensions').innerHTML = 'N/A';
+        document.getElementById('info_size').innerHTML = data[id]['size'] + 'Mb';
+        document.getElementById('info_dimensions').innerHTML = document.getElementById('main_img').naturalWidth + 'x' + document.getElementById('main_img').naturalHeight;
         document.getElementById('info_model').innerHTML = 'N/A';
         document.getElementById('info_location').innerHTML = 'N/A';
     }

@@ -39,7 +39,8 @@ def addImagesToDict(image_dict, images):
     for image in images:
         if image not in files:
             image_dict[str(next_value)] = {
-                'location' : image
+                'location' : image,
+                'size': round(os.path.getsize(image) / 1000000, 2)
             }
             next_value += 1
 
