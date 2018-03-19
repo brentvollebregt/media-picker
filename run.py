@@ -1,4 +1,5 @@
 from flask import Flask, render_template, send_from_directory, jsonify
+import os
 import sys
 import utils
 import webbrowser
@@ -17,10 +18,14 @@ app = Flask(__name__, static_url_path='')
 def rootRoute():
     return render_template('main.html')
 
+@app.route('/getImages/')
+def getImagesRoute():
+    return jsonify(images)
+
 @app.route('/image/<id>')
 def getImageRoute(id):
-    return ''
-    # return send_from_directory()
+    directory, filename = os.path.split(images[id]['location'])
+    return send_from_directory(directory, filename)
 
 @app.route('/selectDirectory/')
 def selectDirectoryRoute():
@@ -34,7 +39,6 @@ def selectFilesRoute():
     files = utils.selectFiles()
     utils.addImagesToDict(images, files)
     return jsonify(images)
-
 
 if __name__ == '__main__':
     import socket
