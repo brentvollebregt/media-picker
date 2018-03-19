@@ -1,5 +1,5 @@
 let data;
-let current;
+let current = null;
 
 // async function setImages() {
 //     // TODO Loading bar
@@ -37,6 +37,15 @@ let current;
 //     console.log(event.target.files[0].name);
 // }
 
+// Setup Images
+function setupImages(images_data) {
+    console.log(images_data);
+    if (current === null) {
+        // TODO Set the current image
+    }
+
+}
+
 // Dialogs
 function overlayChoice(id) {
     document.getElementById("overlay").style.display = "grid";
@@ -52,9 +61,24 @@ function closeOverlayChoice() {
 }
 
 // Choice Methods
-function getImagesWithFileSelect() {
-
-}
 function getImagesWithFolderSelect() {
+    let xhr = new XMLHttpRequest();
+    xhr.open('get', '/selectDirectory/', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+        setupImages(this.response);
+    };
+    xhr.send();
+}
 
+function getImagesWithFileSelect() {
+    let xhr = new XMLHttpRequest();
+    xhr.open('get', '/selectFiles/', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+        setupImages(this.response);
+    };
+    xhr.send();
 }

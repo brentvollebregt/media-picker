@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, jsonify
 import sys
 import utils
 import webbrowser
@@ -23,16 +23,17 @@ def getImageRoute(id):
     # return send_from_directory()
 
 @app.route('/selectDirectory/')
-def selectDirectoryRoute(id):
+def selectDirectoryRoute():
     directory = utils.selectDirectory()
-    return ''
-    # return send_from_directory()
+    files = utils.getFilesFromDirectory(directory)
+    utils.addImagesToDict(images, files)
+    return jsonify(images)
 
 @app.route('/selectFiles/')
-def selectFilesRoute(id):
-    directory = utils.selectFiles()
-    return ''
-    # return send_from_directory()
+def selectFilesRoute():
+    files = utils.selectFiles()
+    utils.addImagesToDict(images, files)
+    return jsonify(images)
 
 
 if __name__ == '__main__':

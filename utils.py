@@ -16,7 +16,7 @@ def selectFiles():
     root.withdraw()
     root.wm_attributes('-topmost', 1)
     files = askopenfilenames(parent=root, initialdir="/", title="Select file", filetypes=(("jpeg files", "*.jpg"), ("all files", "*.*")))
-    print (root.tk.splitlist(files))
+    return root.tk.splitlist(files)
 
 def selectOutputFolder():
     pass
@@ -30,7 +30,17 @@ def getFilesFromDirectory(directory):
     return file_list
 
 def addImagesToDict(image_dict, images):
-    pass
+    if len(image_dict) > 0:
+        next_value = max([int(i) for i in image_dict]) + 1
+    else:
+        next_value = 1
+    files = [image_dict[i]['location'] for i in image_dict]
+    for image in images:
+        if image not in files:
+            image_dict[str(next_value)] = {
+                'location' : image
+            }
+            next_value += 1
 
 def moveMedia(src, items, dest):
     # items - src -> dest
