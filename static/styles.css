@@ -55,12 +55,14 @@ body {
     height: 100%;
     width: 100%;
     text-align: center;
+    cursor: pointer;
 }
 
 #main_img {
     height: 100%;
     max-width: 100%;
     max-height: 100%;
+    cursor: pointer;
 }
 
 .btn_info_sep {
@@ -131,6 +133,23 @@ button {
 
 .red_btn {
     background-color: #d32f2f;
+}
+
+/* Image Overlay */
+#imageOverlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+#imageOverlayImage {
+    max-height: 100%;
+    max-width: 100%;
+    height: 100%;
 }
 
 /* Choices */

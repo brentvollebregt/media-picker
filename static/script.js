@@ -62,47 +62,49 @@ function setMain(id) {
 }
 
 // Main Image Clicks
+function shiftImageLeft() {
+    let next = (parseInt(current) - 1) + '';
+    if (next in data) {
+        setMain(next);
+    }
+}
+
+function shiftImageRight() {
+    let next = (parseInt(current) + 1) + '';
+    if (next in data) {
+        setMain(next);
+    }
+}
+
 function mainImageClicked(event) {
+    event.stopPropagation();
     let size_x = document.getElementById("main_img").clientWidth;
     let pos_x = event.offsetX?(event.offsetX):event.pageX-document.getElementById("main_img").offsetLeft;
-	if (pos_x < size_x*0.2) {
-	    let next = (parseInt(current) - 1) + '';
-	    if (next in data) {
-	        setMain(next);
-        }
-    } else if (pos_x > size_x - (size_x*0.2)) {
-	    let next = (parseInt(current) + 1) + '';
-	    if (next in data) {
-	        setMain(next);
-        }
+	if (pos_x < size_x * 0.2) {
+	    shiftImageLeft();
+    } else if (pos_x > size_x - (size_x * 0.2)) {
+	    shiftImageRight();
     } else {
 	    expandMain();
     }
 }
 
 function expandMain() {
-    console.log("Expand");
-    let node = document.getElementById('main_img');
-    console.log()
+    document.getElementById('imageOverlay').style.display = 'block';
+    document.getElementById('imageOverlayImage').src = '/image/' + current;
 }
 
 function shrinkMain() {
-
+    document.getElementById('imageOverlay').style.display = 'none';
 }
 
 function imageBackgroundClicked(event) {
     let size_x = document.getElementById("imageBackground").clientWidth;
     let pos_x = event.offsetX?(event.offsetX):event.pageX-document.getElementById("imageBackground").offsetLeft;
     if (pos_x < size_x/2) {
-        let next = (parseInt(current) - 1) + '';
-	    if (next in data) {
-	        setMain(next);
-        }
+        shiftImageLeft();
     } else {
-        let next = (parseInt(current) + 1) + '';
-	    if (next in data) {
-	        setMain(next);
-        }
+        shiftImageRight();
     }
 }
 
