@@ -1,6 +1,7 @@
 from tkinter.filedialog import askdirectory, askopenfilenames
 from tkinter import Tk
 import os
+from shutil import copyfile
 
 supported_extensions = ['.jpg', '.jpeg', '.png']
 
@@ -45,10 +46,14 @@ def addImagesToDict(image_dict, images):
             }
             next_value += 1
 
-def moveMedia(items, dest):
-    """ Moves files from their location to a new destination """
-    pass
-
 def copyMedia(items, dest):
     """ Copies files from their location to a new destination """
-    pass
+    for file in items:
+        filename = os.path.basename(file)
+        copyfile(file, dest + '\\' + filename)
+
+def moveMedia(items, dest):
+    """ Moves files from their location to a new destination """
+    for file in items:
+        filename = os.path.basename(file)
+        os.rename(file, dest + '\\' + filename)

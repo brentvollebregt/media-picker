@@ -50,7 +50,8 @@ def exportCopyRoute():
     items = request.json
     try:
         output_dir = utils.selectDirectory()
-        # TODO Copy
+        file_locations = [images[i]['location'] for i in items]
+        utils.copyMedia(file_locations, output_dir)
     except Exception as e:
         return jsonify({'success': False, 'message' : str(e)})
     return jsonify({'success': True})
@@ -60,7 +61,8 @@ def exportMoveRoute():
     items = request.json
     try:
         output_dir = utils.selectDirectory()
-        # TODO Move
+        file_locations = [images[i]['location'] for i in items]
+        utils.moveMedia(file_locations, output_dir)
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
     return jsonify({'success': True})
@@ -83,4 +85,4 @@ if __name__ == '__main__':
     port = 8080
     webbrowser.open('http://' + ip + ':' + str(port) + '/', new=2, autoraise=True)
     print("Site starting on http://" + ip + ":" + str(port))
-    app.run(host=ip, port=port, debug=True)
+    app.run(host=ip, port=port)
