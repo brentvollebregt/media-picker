@@ -36,7 +36,7 @@ body {
 .img_scroll_separation {
     height: 100%;
     display: grid;
-    grid-template-rows: 1fr 100px 60px;
+    grid-template-rows: 1fr 100px 55px;
 }
 
 /* Image (including buttons and info) */
@@ -63,6 +63,7 @@ body {
     max-width: 100%;
     max-height: 100%;
     cursor: pointer;
+    user-select: none;
 }
 
 .btn_info_sep {
@@ -87,6 +88,7 @@ body {
 .info_item {
     display: inline-block;
     margin: auto;
+    white-space:nowrap;
 }
 
 /* Scroller (including images)*/
