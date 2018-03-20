@@ -104,6 +104,13 @@ body {
     white-space: nowrap;
 }
 
+.control_wrapper {
+    height: 100%;
+    padding: 5px 20px 10px 20px;
+    display: inline-block;
+    margin: auto;
+}
+
 /* Formatting */
 /* Buttons */
 button {
