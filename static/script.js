@@ -26,7 +26,9 @@ function setupImages(images_data) {
                 img.style.height = document.getElementById('scroll_bar').clientHeight + 'px';
                 img.style.border = '2px solid #458BC6';
                 img.style.margin = '0 2px';
+                img.style.opacity = '0.75';
                 img.src = '/image/' + key;
+                img.id ='SCROLL_IMAGE_' + key;
                 img.onclick = function () {
                     setMain(key)
                 };
@@ -51,6 +53,10 @@ function setMain(id) {
         document.getElementById('info_model').innerHTML = '';
         document.getElementById('info_location').innerHTML = '';
     } else {
+        document.getElementById('SCROLL_IMAGE_' + id).style.opacity = '1';
+        if (current !== null) {
+            document.getElementById('SCROLL_IMAGE_' + current).style.opacity = '0.75';
+        }
         document.getElementById('main_img').src = '/image/' + id;
         document.getElementById('info_date').innerHTML = 'N/A';
         document.getElementById('info_size').innerHTML = data[id]['size'] + 'Mb';
