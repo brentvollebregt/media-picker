@@ -57,6 +57,7 @@ function setMain(id) {
             document.getElementById('SCROLL_IMAGE_' + current).style.filter = 'grayscale(75%)';
         }
         document.getElementById('SCROLL_IMAGE_' + id).style.filter = 'grayscale(0)';
+        document.getElementById('SCROLL_IMAGE_' + id).scrollIntoView();
         document.getElementById('main_img').src = '/image/' + id;
         document.getElementById('info_date').innerHTML = 'N/A';
         document.getElementById('info_size').innerHTML = data[id]['size'] + 'Mb';
