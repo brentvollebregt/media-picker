@@ -56,7 +56,7 @@ function setMain(id) {
         document.getElementById('info_size').innerHTML = data[id]['size'] + 'Mb';
         document.getElementById('info_dimensions').innerHTML = document.getElementById('main_img').naturalWidth + 'x' + document.getElementById('main_img').naturalHeight;
         document.getElementById('info_model').innerHTML = 'N/A';
-        document.getElementById('info_location').innerHTML = 'N/A';
+        document.getElementById('info_location').innerHTML = data[id]['location'];
     }
     current = id;
 }
@@ -88,6 +88,22 @@ function expandMain() {
 
 function shrinkMain() {
 
+}
+
+function imageBackgroundClicked(event) {
+    let size_x = document.getElementById("imageBackground").clientWidth;
+    let pos_x = event.offsetX?(event.offsetX):event.pageX-document.getElementById("imageBackground").offsetLeft;
+    if (pos_x < size_x/2) {
+        let next = (parseInt(current) - 1) + '';
+	    if (next in data) {
+	        setMain(next);
+        }
+    } else {
+        let next = (parseInt(current) + 1) + '';
+	    if (next in data) {
+	        setMain(next);
+        }
+    }
 }
 
 // Dialogs

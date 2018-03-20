@@ -2,7 +2,7 @@ from tkinter.filedialog import askdirectory, askopenfilenames
 from tkinter import Tk
 import os
 
-supported_exenstions = ['.jpg', '.jpeg', '.png']
+supported_extensions = ['.jpg', '.jpeg', '.png']
 
 def selectDirectory():
     """ Opens a select directory dialog and returns the path selected """
@@ -25,7 +25,7 @@ def getFilesFromDirectory(directory):
     file_list = []
     for root, dirs, files in os.walk(directory.replace('/', '\\'), topdown=False):
         for name in files:
-            if os.path.splitext(name)[1] in supported_exenstions:
+            if os.path.splitext(name)[1] in supported_extensions:
                 file_list.append(os.path.join(root, name))
     return file_list
 
