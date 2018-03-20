@@ -5,14 +5,9 @@ let current = null;
 function setupImages(images_data) {
     data = images_data;
     if (images_data === null) {
-        let xhr = new XMLHttpRequest();
-        xhr.open('get', '/getImages/', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.responseType = 'json';
-        xhr.onload = function() {
-            setupImages(this.response);
-        };
-        xhr.send();
+        _request('GET', '/getImages/', null,
+            function () { setupImages(this.response); }
+        )
     } else {
         let parent = document.getElementById('scroll_bar');
         parent.style.width = window.innerWidth-40 + 'px';
@@ -167,37 +162,22 @@ function closeOverlayChoice() {
 
 // User Methods
 function getImagesWithFolderSelect() {
-    let xhr = new XMLHttpRequest();
-    xhr.open('get', '/selectDirectory/', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.responseType = 'json';
-    xhr.onload = function() {
-        setupImages(this.response);
-    };
-    xhr.send();
+    _request('GET', '/selectDirectory/', null,
+        function () { setupImages(this.response); }
+    )
 }
 
 function getImagesWithFileSelect() {
-    let xhr = new XMLHttpRequest();
-    xhr.open('get', '/selectFiles/', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.responseType = 'json';
-    xhr.onload = function() {
-        setupImages(this.response);
-    };
-    xhr.send();
+    _request('GET', '/selectFiles/', null,
+        function () { setupImages(this.response); }
+    )
 }
 
 function clearFiles() {
-    let xhr = new XMLHttpRequest();
-    xhr.open('get', '/clearImages/', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.responseType = 'json';
-    xhr.onload = function() {
-        console.log("Reloading");
-        window.location.reload(true)
-    };
-    xhr.send();
+    _request('GET', '/clearImages/', null,
+        function () { console.log("Reloading"); window.location.reload(true); }
+    )
+
 }
 
 function clearChoices() {
