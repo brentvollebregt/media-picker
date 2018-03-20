@@ -1,6 +1,5 @@
 let data;
 let current = null;
-let in_scroll = [];
 
 // Setup Images
 function setupImages(images_data) {
@@ -18,7 +17,7 @@ function setupImages(images_data) {
         let parent = document.getElementById('scroll_bar');
         parent.style.width = window.innerWidth-40 + 'px';
         for (const key of Object.keys(data)) {
-            if (in_scroll.indexOf(key) === -1) {
+            if (document.getElementById('SCROLL_IMAGE_' + key) === null) {
                 let div = document.createElement('div');
                 let img = document.createElement('img');
                 div.style.display = 'inline-block';
@@ -34,11 +33,10 @@ function setupImages(images_data) {
                 };
                 div.appendChild(img);
                 parent.appendChild(div);
-                in_scroll.push(key);
             }
         }
 
-        if (current === null && in_scroll.length > 0) {
+        if (current === null && document.getElementById('SCROLL_IMAGE_1') !== null) {
             setMain('1');
         }
     }
