@@ -110,6 +110,17 @@ function imageBackgroundClicked(event) {
     }
 }
 
+// Main Button Clicks
+function keepImage() {
+    document.getElementById('SCROLL_IMAGE_' + current).classList.add('green');
+    document.getElementById('SCROLL_IMAGE_' + current).classList.remove('red');
+}
+
+function noKeepImage() {
+    document.getElementById('SCROLL_IMAGE_' + current).classList.add('red');
+    document.getElementById('SCROLL_IMAGE_' + current).classList.remove('green');
+}
+
 // Dialogs
 function overlayChoice(id) {
     document.getElementById("overlay").style.display = "grid";
@@ -160,7 +171,14 @@ function clearFiles() {
 }
 
 function clearChoices() {
-
+    let greens = document.getElementsByClassName('green');
+    for(let i = 0; i < greens.length; i++) {
+        greens[i].classList.remove('green');
+    }
+    let reds = document.getElementsByClassName('red');
+    for(let i = 0; i < reds.length; i++) {
+        reds[i].classList.remove('red');
+    }
 }
 
 function exportCopy() {
@@ -168,10 +186,6 @@ function exportCopy() {
 }
 
 function exportMove() {
-
-}
-
-function viewOutputFolder() {
 
 }
 

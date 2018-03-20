@@ -14,7 +14,7 @@
             </div>
             <div id="clearChoice">
                 <div onclick="clearFiles()"><div>Clear Files</div></div>
-                <div><div>Clear Choices</div></div>
+                <div onclick="clearChoices()"><div>Clear Choices</div></div>
             </div>
             <div id="exportChoice">
                 <div><div>Export by Copy</div></div>
@@ -44,8 +44,8 @@
                             <div id="info_location" class="info_item"></div>
                         </div>
                         <!-- Buttons -->
-                        <button class="btn_main red">Don't Copy</button>
-                        <button class="btn_main green">Copy</button>
+                        <button class="btn_main red" onclick="noKeepImage()">Don't Copy</button>
+                        <button class="btn_main green" onclick="keepImage()">Copy</button>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,6 @@
                 <button class="btn_main" onclick="overlayChoice('addFileChoice')">Add Files</button>
                 <button class="btn_main" onclick="overlayChoice('clearChoice')">Clear</button>
                 <button class="btn_main" onclick="overlayChoice('exportChoice')">Export</button>
-                <button class="btn_main">View output</button>
             </div>
         </div>
     </body>

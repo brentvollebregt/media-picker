@@ -41,6 +41,7 @@ def addImagesToDict(image_dict, images):
             image_dict[str(next_value)] = {
                 'location' : image,
                 'size': round(os.path.getsize(image) / 1000000, 2)
+                # TODO Get date and model
             }
             next_value += 1
 
