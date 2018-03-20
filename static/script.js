@@ -90,7 +90,7 @@ function mainImageClicked(event) {
 }
 
 function expandMain() {
-    document.getElementById('imageOverlay').style.display = 'block';
+    document.getElementById('imageOverlay').style.display = 'flex';
     document.getElementById('imageOverlayImage').src = '/image/' + current;
     document.getElementById('scroll_bar').style.display = 'none';
 }
