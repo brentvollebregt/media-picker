@@ -121,6 +121,36 @@ function noKeepImage() {
     document.getElementById('SCROLL_IMAGE_' + current).classList.remove('green');
 }
 
+function getKeep(keep) {
+    let nodes = [];
+    if (keep) {
+        let greens = document.getElementsByClassName('green');
+        for(let i = 0; i < greens.length; i++) {
+            if (greens[i].id !== 'keep') {
+                nodes.push(greens[i].id);
+            }
+        }
+    } else {
+        let reds = document.getElementsByClassName('red');
+        for(let i = 0; i < reds.length; i++) {
+            if (reds[i].id !== 'noKeep') {
+                nodes.push(reds[i].id);
+            }
+        }
+    }
+    return nodes;
+}
+
+// Convert ids to data indexes
+function getGreenIndexes() {
+    let green_ids = getKeep(true);
+    let id_filtered = [];
+    for(let i = 0; i < green_ids.length; i++) {
+        id_filtered.push(green_ids[i].replace('SCROLL_IMAGE_', ''));
+    }
+    return id_filtered;
+}
+
 // Dialogs
 function overlayChoice(id) {
     document.getElementById("overlay").style.display = "grid";
@@ -171,22 +201,23 @@ function clearFiles() {
 }
 
 function clearChoices() {
-    let greens = document.getElementsByClassName('green');
-    for(let i = 0; i < greens.length; i++) {
-        greens[i].classList.remove('green');
+    let green_ids = getKeep(true);
+    for(let i = 0; i < green_ids.length; i++) {
+        document.getElementById(green_ids[i]).classList.remove('green');
     }
-    let reds = document.getElementsByClassName('red');
-    for(let i = 0; i < reds.length; i++) {
-        reds[i].classList.remove('red');
+    let red_ids = getKeep(false);
+    for(let i = 0; i < red_ids.length; i++) {
+        document.getElementById(red_ids[i]).classList.remove('red');
     }
 }
 
 function exportCopy() {
+    let green_indexes = getGreenIndexes();
 
 }
 
 function exportMove() {
-
+    let green_indexes = getGreenIndexes();
 }
 
 // On load

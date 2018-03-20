@@ -14,7 +14,7 @@ if len(sys.argv) > 1:
 
 app = Flask(__name__, static_url_path='')
 
-@app.route("/")
+@app.route('/')
 def rootRoute():
     return render_template('main.html')
 
@@ -54,11 +54,6 @@ def exportCopyRoute():
 @app.route('/exportMove/', methods=['POST'])
 def exportMoveRoute():
     output_dir = utils.selectDirectory()
-    # TODO
-    return ''
-
-@app.route('/viewOutputFolder/')
-def viewOutputFolderRoute():
     # TODO
     return ''
 
