@@ -213,11 +213,42 @@ function clearChoices() {
 
 function exportCopy() {
     let green_indexes = getGreenIndexes();
-
+    _request('POST', '/exportCopy/', green_indexes,
+        function () {
+            if (this.response['success']) {
+                alert('Copied Successfully')
+            } else {
+                alert(this.response['message'])
+            }
+        }
+    )
 }
 
 function exportMove() {
     let green_indexes = getGreenIndexes();
+    _request('POST', '/exportMove/', green_indexes,
+        function () {
+            if (this.response['success']) {
+                alert('Moved Successfully')
+            } else {
+                alert(this.response['message'])
+            }
+        }
+    )
+}
+
+// XML Http Request 
+function _request(method, url, data, onload) {
+    let xhr = new XMLHttpRequest();
+    xhr.open(method, url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.responseType = 'json';
+    xhr.onload = onload;
+    if (method === 'GET') {
+        xhr.send();
+    } else {
+        xhr.send(JSON.stringify(data));
+    }
 }
 
 // On load

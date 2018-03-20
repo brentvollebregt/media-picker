@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, jsonify
+from flask import Flask, render_template, send_from_directory, jsonify, request
 import os
 import sys
 import utils
@@ -47,15 +47,23 @@ def clearImagesRoute():
 
 @app.route('/exportCopy/', methods=['POST'])
 def exportCopyRoute():
-    output_dir = utils.selectDirectory()
-    # TODO
-    return ''
+    items = request.json
+    try:
+        output_dir = utils.selectDirectory()
+        # TODO Copy
+    except Exception as e:
+        return jsonify({'success': False, 'message' : str(e)})
+    return jsonify({'success': True})
 
 @app.route('/exportMove/', methods=['POST'])
 def exportMoveRoute():
-    output_dir = utils.selectDirectory()
-    # TODO
-    return ''
+    items = request.json
+    try:
+        output_dir = utils.selectDirectory()
+        # TODO Move
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)})
+    return jsonify({'success': True})
 
 @app.after_request
 def add_header(r):
