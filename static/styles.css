@@ -96,7 +96,7 @@ body {
     padding: 0 20px;
 }
 
-.scroller {
+#scroll_bar {
     height: 100%;
     width: 100%;
     border-right: solid 4px #5a85c4;
@@ -104,6 +104,17 @@ body {
     overflow-y: hidden;
     overflow-x: scroll;
     white-space: nowrap;
+}
+
+#scroll_bar > div {
+    display: inline-block;
+    cursor: pointer;
+}
+
+#scroll_bar > div > img {
+    border: 2px solid #458BC6;
+    margin: 0 2px;
+    opacity: 0.75;
 }
 
 .control_wrapper {
@@ -136,12 +147,14 @@ button {
     white-space: nowrap;
 }
 
-.green_btn {
+.green {
     background-color: #388e3c;
+    border: 2px solid #388e3c !important;
 }
 
-.red_btn {
+.red {
     background-color: #d32f2f;
+    border: 2px solid #d32f2f !important;
 }
 
 /* Image Overlay */

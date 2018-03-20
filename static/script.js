@@ -20,12 +20,7 @@ function setupImages(images_data) {
             if (document.getElementById('SCROLL_IMAGE_' + key) === null) {
                 let div = document.createElement('div');
                 let img = document.createElement('img');
-                div.style.display = 'inline-block';
-                div.style.cursor = 'pointer';
                 img.style.height = document.getElementById('scroll_bar').clientHeight + 'px';
-                img.style.border = '2px solid #458BC6';
-                img.style.margin = '0 2px';
-                img.style.filter = 'grayscale(75%)';
                 img.src = '/image/' + key;
                 img.id ='SCROLL_IMAGE_' + key;
                 img.onclick = function () {
@@ -52,9 +47,9 @@ function setMain(id) {
         document.getElementById('info_location').innerHTML = '';
     } else {
         if (current !== null) {
-            document.getElementById('SCROLL_IMAGE_' + current).style.filter = 'grayscale(75%)';
+            document.getElementById('SCROLL_IMAGE_' + current).style.opacity = '0.75';
         }
-        document.getElementById('SCROLL_IMAGE_' + id).style.filter = 'grayscale(0)';
+        document.getElementById('SCROLL_IMAGE_' + id).style.opacity = '1';
         document.getElementById('SCROLL_IMAGE_' + id).scrollIntoView();
         document.getElementById('main_img').src = '/image/' + id;
         document.getElementById('info_date').innerHTML = 'N/A';
