@@ -1,5 +1,9 @@
-from tkinter.filedialog import askdirectory, askopenfilenames
-from tkinter import Tk
+try:
+    from tkinter import Tk
+    from tkinter.filedialog import askdirectory, askopenfilenames
+except:
+    from Tkinter import Tk
+    from Tkinter.filedialog import askdirectory, askopenfilenames
 import os
 from shutil import copyfile
 
