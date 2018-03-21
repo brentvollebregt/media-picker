@@ -80,8 +80,7 @@ def add_header(r):
     return r
 
 if __name__ == '__main__':
-    import socket
-    ip = socket.gethostbyname(socket.gethostname())
+    ip = "127.0.0.1"
     port = 8080
     webbrowser.open('http://' + ip + ':' + str(port) + '/', new=2, autoraise=True)
     print("Site starting on http://" + ip + ":" + str(port))
