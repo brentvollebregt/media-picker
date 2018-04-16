@@ -1,6 +1,9 @@
+import datetime
 from flask import Flask, render_template, send_from_directory, jsonify, request
 import os
 import sys
+import time
+import threading
 import utils
 import webbrowser
 
@@ -12,40 +15,56 @@ if len(sys.argv) > 1:
     image_files = utils.getFilesFromDirectory(sys.argv[1])
     utils.addImagesToDict(images, image_files)
 
+class PingThread(threading.Thread):
+    timeout = 0
+    EXTEND_TIME = 60
+    def __init__(self):
+        self.refresh()
+
+    def run(self):
+        while True:
+            if datetime.datetime.now() > self.timeout:
+                print ("No client found, shutting server down")
+                os._exit()
+            time.sleep(5)
+
+    def refresh(self):
+        self.timeout = datetime.datetime.now() + datetime.timedelta(0, EXTEND_TIME)
+
 app = Flask(__name__, static_url_path='')
 
 @app.route('/')
 def rootRoute():
     return render_template('main.html')
 
-@app.route('/getImages/')
+@app.route('/getImages')
 def getImagesRoute():
     return jsonify(images)
 
-@app.route('/image/<id>')
+@app.route('/image<id>')
 def getImageRoute(id):
     directory, filename = os.path.split(images[id]['location'])
     return send_from_directory(directory, filename)
 
-@app.route('/selectDirectory/')
+@app.route('/selectDirectory')
 def selectDirectoryRoute():
     directory = utils.selectDirectory()
     files = utils.getFilesFromDirectory(directory)
     utils.addImagesToDict(images, files)
     return jsonify(images)
 
-@app.route('/selectFiles/')
+@app.route('/selectFiles')
 def selectFilesRoute():
     files = utils.selectFiles()
     utils.addImagesToDict(images, files)
     return jsonify(images)
 
-@app.route('/clearImages/')
+@app.route('/clearImages')
 def clearImagesRoute():
     images.clear()
     return jsonify(images)
 
-@app.route('/exportCopy/', methods=['POST'])
+@app.route('/exportCopy', methods=['POST'])
 def exportCopyRoute():
     items = request.json
     try:
@@ -56,7 +75,7 @@ def exportCopyRoute():
         return jsonify({'success': False, 'message' : str(e)})
     return jsonify({'success': True})
 
-@app.route('/exportMove/', methods=['POST'])
+@app.route('/exportMove', methods=['POST'])
 def exportMoveRoute():
     items = request.json
     try:
@@ -65,6 +84,10 @@ def exportMoveRoute():
         utils.moveMedia(file_locations, output_dir)
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
+    return jsonify({'success': True})
+
+@app.route('/ping')
+def pingRoute():
     return jsonify({'success': True})
 
 @app.after_request
@@ -80,6 +103,8 @@ def add_header(r):
     return r
 
 if __name__ == '__main__':
+    pingThread = PingThread()
+    pingThread.start()
     ip = "127.0.0.1"
     port = 8080
     webbrowser.open('http://' + ip + ':' + str(port) + '/', new=2, autoraise=True)

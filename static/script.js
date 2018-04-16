@@ -5,7 +5,7 @@ let current = null;
 function setupImages(images_data) {
     data = images_data;
     if (images_data === null) {
-        _request('GET', '/getImages/', null,
+        _request('GET', '/getImages', null,
             function () { setupImages(this.response); }
         )
     } else {
@@ -16,7 +16,7 @@ function setupImages(images_data) {
                 let div = document.createElement('div');
                 let img = document.createElement('img');
                 img.style.height = document.getElementById('scroll_bar').clientHeight + 'px';
-                img.src = '/image/' + key;
+                img.src = '/image' + key;
                 img.id ='SCROLL_IMAGE_' + key;
                 img.onclick = function () {
                     setMain(key)
@@ -46,7 +46,7 @@ function setMain(id) {
         }
         document.getElementById('SCROLL_IMAGE_' + id).style.opacity = '1';
         document.getElementById('SCROLL_IMAGE_' + id).scrollIntoView();
-        document.getElementById('main_img').src = '/image/' + id;
+        document.getElementById('main_img').src = '/image' + id;
         document.getElementById('info_date').innerHTML = 'N/A';
         document.getElementById('info_size').innerHTML = data[id]['size'] + 'Mb';
         document.getElementById('info_dimensions').innerHTML = document.getElementById('main_img').naturalWidth + 'x' + document.getElementById('main_img').naturalHeight;
@@ -86,7 +86,7 @@ function mainImageClicked(event) {
 
 function expandMain() {
     document.getElementById('imageOverlay').style.display = 'flex';
-    document.getElementById('imageOverlayImage').src = '/image/' + current;
+    document.getElementById('imageOverlayImage').src = '/image' + current;
     document.getElementById('scroll_bar').style.display = 'none';
 }
 
@@ -162,19 +162,19 @@ function closeOverlayChoice() {
 
 // User Methods
 function getImagesWithFolderSelect() {
-    _request('GET', '/selectDirectory/', null,
+    _request('GET', '/selectDirectory', null,
         function () { setupImages(this.response); }
     )
 }
 
 function getImagesWithFileSelect() {
-    _request('GET', '/selectFiles/', null,
+    _request('GET', '/selectFiles', null,
         function () { setupImages(this.response); }
     )
 }
 
 function clearFiles() {
-    _request('GET', '/clearImages/', null,
+    _request('GET', '/clearImages', null,
         function () { console.log("Reloading"); window.location.reload(true); }
     )
 
@@ -193,7 +193,7 @@ function clearChoices() {
 
 function exportCopy() {
     let green_indexes = getGreenIndexes();
-    _request('POST', '/exportCopy/', green_indexes,
+    _request('POST', '/exportCopy', green_indexes,
         function () {
             if (this.response['success']) {
                 alert('Copied Successfully')
@@ -206,7 +206,7 @@ function exportCopy() {
 
 function exportMove() {
     let green_indexes = getGreenIndexes();
-    _request('POST', '/exportMove/', green_indexes,
+    _request('POST', '/exportMove', green_indexes,
         function () {
             if (this.response['success']) {
                 alert('Moved Successfully')
@@ -234,4 +234,23 @@ function _request(method, url, data, onload) {
 // On load
 window.addEventListener('load', function () {
     setupImages(null);
+
+    // Ping Server
+    _request('GET', '/ping', null,
+            function () {
+                if (this.status !== 200) {
+                    alert("Server unexpectedly died");
+                    clearInterval(pingID);
+                }
+            });
+    // Then loop
+    let pingID = setInterval(function() {
+        _request('GET', '/ping', null,
+            function () {
+                if (this.status !== 200) {
+                    alert("Server unexpectedly died");
+                    clearInterval(pingID);
+                }
+            })
+    }, 30000);
 });
