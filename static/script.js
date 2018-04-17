@@ -109,11 +109,13 @@ function imageBackgroundClicked(event) {
 function keepImage() {
     document.getElementById('SCROLL_IMAGE_' + current).classList.add('green');
     document.getElementById('SCROLL_IMAGE_' + current).classList.remove('red');
+    skipToNextImage();
 }
 
 function noKeepImage() {
     document.getElementById('SCROLL_IMAGE_' + current).classList.add('red');
     document.getElementById('SCROLL_IMAGE_' + current).classList.remove('green');
+    skipToNextImage();
 }
 
 function getKeep(keep) {
@@ -134,6 +136,14 @@ function getKeep(keep) {
         }
     }
     return nodes;
+}
+
+function skipToNextImage() {
+    let ids = Object.keys(data);
+    let next = ids.indexOf(current) + 1;
+    if (next <= ids.length) {
+        setMain(ids[next]);
+    }
 }
 
 // Convert ids to data indexes

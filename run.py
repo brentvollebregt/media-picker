@@ -19,6 +19,7 @@ class PingThread(threading.Thread):
     timeout = 0
     EXTEND_TIME = 60
     def __init__(self):
+        super().__init__()
         self.refresh()
 
     def run(self):
@@ -29,7 +30,7 @@ class PingThread(threading.Thread):
             time.sleep(5)
 
     def refresh(self):
-        self.timeout = datetime.datetime.now() + datetime.timedelta(0, EXTEND_TIME)
+        self.timeout = datetime.datetime.now() + datetime.timedelta(0, self.EXTEND_TIME)
 
 app = Flask(__name__, static_url_path='')
 
