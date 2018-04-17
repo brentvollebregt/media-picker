@@ -26,7 +26,7 @@ class PingThread(threading.Thread):
         while True:
             if datetime.datetime.now() > self.timeout:
                 print ("No client found, shutting server down")
-                os._exit()
+                os._exit(0)
             time.sleep(5)
 
     def refresh(self):
@@ -89,6 +89,7 @@ def exportMoveRoute():
 
 @app.route('/ping')
 def pingRoute():
+    pingThread.refresh()
     return jsonify({'success': True})
 
 @app.after_request
@@ -103,11 +104,10 @@ def add_header(r):
     r.headers['Cache-Control'] = 'public, max-age=0'
     return r
 
-if __name__ == '__main__':
-    pingThread = PingThread()
-    pingThread.start()
-    ip = "127.0.0.1"
-    port = 8080
-    webbrowser.open('http://' + ip + ':' + str(port) + '/', new=2, autoraise=True)
-    print("Site starting on http://" + ip + ":" + str(port))
-    app.run(host=ip, port=port)
+pingThread = PingThread()
+pingThread.start()
+ip = "127.0.0.1"
+port = 8080
+webbrowser.open('http://' + ip + ':' + str(port) + '/', new=2, autoraise=True)
+print("Site starting on http://" + ip + ":" + str(port))
+app.run(host=ip, port=port)
