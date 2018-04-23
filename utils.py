@@ -1,11 +1,12 @@
-try:
-    from tkinter import Tk
-    from tkinter.filedialog import askdirectory, askopenfilenames
-except:
-    from Tkinter import Tk
-    from Tkinter.filedialog import askdirectory, askopenfilenames
+import sys
 import os
 from shutil import copyfile
+if sys.version_info.major >= 3:
+    from tkinter import Tk
+    from tkinter.filedialog import askdirectory, askopenfilenames
+else:
+    from Tkinter import Tk
+    from Tkinter.filedialog import askdirectory, askopenfilenames
 
 supported_extensions = ['.jpg', '.jpeg', '.png']
 
