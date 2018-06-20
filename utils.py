@@ -6,7 +6,11 @@ if sys.version_info.major >= 3:
     from tkinter.filedialog import askdirectory, askopenfilenames
 else:
     from Tkinter import Tk
-    from Tkinter.filedialog import askdirectory, askopenfilenames
+    try:
+        from Tkinter.filedialog import askdirectory, askopenfilenames
+    except:
+        from tkFileDialog import askdirectory as askdirectory
+        from tkFileDialog import askopenfilenames as askopenfilenames
 
 supported_extensions = ['.jpg', '.jpeg', '.png']
 
@@ -24,7 +28,8 @@ def selectFiles():
     root.withdraw()
     root.wm_attributes('-topmost', 1)
     files = askopenfilenames(parent=root, initialdir="/", title="Select file", filetypes=(("jpeg files", "*.jpg"), ("all files", "*.*")))
-    return root.tk.splitlist([file.replace('/', '\\') for file in files])
+    print (files)
+    return root.tk.splitlist(files)
 
 def getFilesFromDirectory(directory):
     """ Gets files with supported file extensions within a directory """

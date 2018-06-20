@@ -19,7 +19,7 @@ class PingThread(threading.Thread):
     timeout = 0
     EXTEND_TIME = 60
     def __init__(self):
-        super().__init__()
+        super(PingThread, self).__init__()
         self.refresh()
 
     def run(self):
