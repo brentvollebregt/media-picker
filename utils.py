@@ -12,7 +12,7 @@ else:
         from tkFileDialog import askdirectory as askdirectory
         from tkFileDialog import askopenfilenames as askopenfilenames
 
-supported_extensions = ['.jpg', '.jpeg', '.png']
+supported_extensions = ['.jpg', '.jpeg', '.png', '.svg', '.bmp', '.ico', '.gif']
 
 def selectDirectory():
     """ Opens a select directory dialog and returns the path selected """
@@ -27,8 +27,11 @@ def selectFiles():
     root = Tk()
     root.withdraw()
     root.wm_attributes('-topmost', 1)
-    files = askopenfilenames(parent=root, initialdir="/", title="Select file", filetypes=(("jpeg files", "*.jpg"), ("all files", "*.*")))
-    print (files)
+    files = askopenfilenames(parent=root,
+                             initialdir="/",
+                             title="Select file",
+                             filetypes=(("Image files", '*' + ';*'.join(supported_extensions)), ("all files", "*.*"))
+                             )
     return root.tk.splitlist(files)
 
 def getFilesFromDirectory(directory):

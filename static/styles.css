@@ -36,7 +36,7 @@ body {
 .img_scroll_separation {
     height: 100%;
     display: grid;
-    grid-template-rows: 1fr 100px 55px;
+    grid-template-rows: 1fr 80px 55px;
 }
 
 /* Image (including buttons and info) */
@@ -112,7 +112,7 @@ body {
 }
 
 #scroll_bar > div > img {
-    border: 3px solid #458BC6;
+    border: 2px solid #458BC6;
     margin: 0 2px;
     opacity: 0.75;
 }
