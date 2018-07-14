@@ -1,1 +1,2 @@
 Flask>=0.12.2
+Pillow; python_version >= '3.0'

@@ -11,6 +11,7 @@ else:
     except:
         from tkFileDialog import askdirectory as askdirectory
         from tkFileDialog import askopenfilenames as askopenfilenames
+from PIL import Image
 
 supported_extensions = ['.jpg', '.jpeg', '.png', '.svg', '.bmp', '.ico', '.gif']
 
@@ -28,7 +29,6 @@ def selectFiles():
     root.withdraw()
     root.wm_attributes('-topmost', 1)
     files = askopenfilenames(parent=root,
-                             initialdir="/",
                              title="Select file",
                              filetypes=(("Image files", '*' + ';*'.join(supported_extensions)), ("all files", "*.*"))
                              )
@@ -54,10 +54,22 @@ def addImagesToDict(image_dict, images):
         if image not in files:
             image_dict[str(next_value)] = {
                 'location' : image,
-                'size': round(os.path.getsize(image) / 1000000, 2)
-                # TODO Get date and model
+                'size' : round(os.path.getsize(image) / 1000000, 2),
+                'date' : get_exif(image, 'date'),
+                'model' : get_exif(image, 'model')
             }
             next_value += 1
+
+def get_exif(file, data):
+    try: # Also handles if exif is not None
+        exif = Image.open(file)._getexif()
+        if data == 'date' and 36867 in exif:
+            return exif[36867]
+        if data == 'model' and 272 in exif:
+            return exif[272]
+    except:
+        pass
+    return 'N/A'
 
 def copyMedia(items, dest):
     """ Copies files from their location to a new destination """
